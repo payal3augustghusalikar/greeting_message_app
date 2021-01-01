@@ -28,6 +28,16 @@ exports.createNewGreeting = (greeting, callback) => {
  * @description find all greetings
  * @param {*} callBack calls controller method
  */
+// exports.findAll = (callBack) => {
+//     greetingModel.findAll((data, error) => {
+//         if (error)
+//             return callBack(new Error("Some error occurred while retrieving greeting"), null)
+//         else
+//             return callBack(data, null)
+//     })
+// }
+
+
 exports.findAll = (callBack) => {
     greetingModel.findAll((data, error) => {
         if (error)
@@ -37,13 +47,15 @@ exports.findAll = (callBack) => {
     })
 }
 
+
+
 /**
  * @description find greeting by _id
  * @param {*} greetingID 
  * @param {*} callBack calls controller method
  */
-exports.findGreeting = (greetingID, callBack) => {
-    greetingModel.findGreeting((greetingID), (data, error) => {
+exports.findGreeting = (gretingID, callBack) => {
+    greetingModel.findGreeting(gretingID, (error, data) => {
         if (error)
             return callBack(error, null);
         else
@@ -76,7 +88,7 @@ exports.updateGreeting = (greetingID, callBack) => {
         if (error)
             return callBack(new Error("Some error occurred while updating greeting"), null)
         else
-            return callBack(null, data)
+            return callBack(data, null)
     })
 }
 

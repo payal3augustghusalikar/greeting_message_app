@@ -51,5 +51,5 @@ require('./app/routes/greeting.routes.js')(app);
 
 // listen for requests using callback
 app.listen(2000, () => { 
-    console.log("Server is listening on port 3001");
+    console.log("Server is listening on port 2000");
 });

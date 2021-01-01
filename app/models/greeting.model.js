@@ -47,8 +47,8 @@ exports.findAll = (callBack) => {
  * @param {*} greetingID takes from request
  * @param {*} callBack calls service method
  */
-exports.findGreeting = (greetingID, callBack) => {
-    Greeting.findById(greetingID, (error, data) => {
+exports.findGreeting = (gretingID, callBack) => {
+    Greeting.findById(gretingID, (error, data) => {
         if (error)
             return callBack(error, null);
         else
