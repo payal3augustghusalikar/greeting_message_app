@@ -1,21 +1,22 @@
+
 module.exports = (app) => {
     const greetings = require('../controllers/greeting.controllers.js');
     const service = require('../services/greeting.services.js')
 
 
-    // Create a new Note
+    // Create a new greeting
     app.post('/greetings', greetings.create);
 
     // Retrieve all greetings
     app.get('/greetings', greetings.findAll);
 
-    // Retrieve a single Note with noteId
-    app.get('/greetings/:noteId', greetings.findOne);
+    // Retrieve a single greeting with greetingId
+    app.get('/greetings/:greetingId', greetings.findOne);
 
-    // Update a Note with noteId
-    app.put('/greetings/:noteId', greetings.update);
+    // Update a greeting with greetingId
+    app.put('/greetings/:greetingId', greetings.update);
 
-    // Delete a Note with noteId
-    app.delete('/greetings/:noteId', greetings.delete);
+    // Delete a greeting with greetingId
+    app.delete('/greetings/:greetingId', greetings.delete);
 }
  

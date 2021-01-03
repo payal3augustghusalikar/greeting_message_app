@@ -1,20 +1,14 @@
-
-
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const swaggerJsDoc = require(`swagger-jsdoc`);
 const swaggerUI = require(`swagger-ui-express`);
-// const swaggerOptions = {
-//     openapi : ''
-// }
 
 
 // create express app
 const app = express();
 
 // parse requests of content-type - application/x-www-form-urlencoded - extended is a key
-app.use(bodyParser.urlencoded({ extended: true })) // true - we are using urlencoded
+app.use(bodyParser.urlencoded({ extended: true })) 
 
 // parse requests of content-type - application/json 
 app.use(bodyParser.json())

@@ -1,4 +1,3 @@
-
 const greetingModel = require('../models/greeting.model')
 const mongoose = require('mongoose');
 
@@ -28,15 +27,6 @@ exports.createNewGreeting = (greeting, callback) => {
  * @description find all greetings
  * @param {*} callBack calls controller method
  */
-// exports.findAll = (callBack) => {
-//     greetingModel.findAll((data, error) => {
-//         if (error)
-//             return callBack(new Error("Some error occurred while retrieving greeting"), null)
-//         else
-//             return callBack(data, null)
-//     })
-// }
-
 
 exports.findAll = (callBack) => {
     greetingModel.findAll((data, error) => {
@@ -55,7 +45,7 @@ exports.findAll = (callBack) => {
  * @param {*} callBack calls controller method
  */
 exports.findGreeting = (gretingID, callBack) => {
-    greetingModel.findGreeting(gretingID, (error, data) => {
+    greetingModel.findGreeting(gretingID, (data, error) => {
         if (error)
             return callBack(error, null);
         else
@@ -91,4 +81,3 @@ exports.updateGreeting = (greetingID, callBack) => {
             return callBack(data, null)
     })
 }
-

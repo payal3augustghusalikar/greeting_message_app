@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 const Services = require('../services/greeting.services')
 
@@ -47,8 +46,8 @@ exports.findAll = (callBack) => {
  * @param {*} greetingID takes from request
  * @param {*} callBack calls service method
  */
-exports.findGreeting = (gretingID, callBack) => {
-    Greeting.findById(gretingID, (error, data) => {
+exports.findGreeting = (greetingID, callBack) => {
+    Greeting.findById(greetingID, (error, data) => {
         if (error)
             return callBack(error, null);
         else

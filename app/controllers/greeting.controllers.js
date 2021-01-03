@@ -8,16 +8,16 @@ const Greeting = require('../models/greeting.model.js');
  * @param {*} res sends responce from server
  */
 exports.findOne = (req, res) => {
-  
-        //const greetingID = req.params._id;
-        try {
-            const greetingID = req.params.greetingId;
-            greetingService.findGreeting(greetingID, greeting => {
-                if (!greeting) {
+
+    //const greetingID = req.params._id;
+    try {
+        const greetingID = req.params.greetingId;
+        greetingService.findGreeting(greetingID, greeting => {
+            if (!greeting) {
                 return res.send({
                     success: false,
                     status_code: 404,
-                    message: "greeting not found with id " + req.params.greetingId, 
+                    message: "greeting not found with id " + req.params.greetingId,
                 });
             }
             return res.send({
@@ -122,18 +122,17 @@ exports.findAll = (req, res) => {
                 message: `greeting found`,
                 data: (greetings)
             });
-          
+
         });
-        
+
     } catch (error) {
         res.send({
             success: false,
             status_code: 500,
             message: `greeting not found`,
-           // data: greetings
         });
 
-       // response.status(500).send(error.message);
+       
     }
 }
 
