@@ -8,13 +8,12 @@ const mongoose = require('mongoose');
  * @param {*} callback calls controller method
  */
 exports.createNewGreeting = (greeting, callback) => {
-
     // const Usergreeting = new greeting({
     //     UserTitle: req.body.title || "Untitled greeting",
     //     UserContent: req.body.content
     // });
 
-    greetingModel.create( greeting , (err, data) => {
+    greetingModel.create(greeting , (err, data) => {
         if (err) {
             callback(err, null)
         } else {
@@ -27,7 +26,6 @@ exports.createNewGreeting = (greeting, callback) => {
  * @description find all greetings
  * @param {*} callBack calls controller method
  */
-
 exports.findAll = (callBack) => {
     greetingModel.findAll((data, error) => {
         if (error)
@@ -36,8 +34,6 @@ exports.findAll = (callBack) => {
             return callBack(data)
     })
 }
-
-
 
 /**
  * @description find greeting by _id
@@ -73,11 +69,11 @@ exports.delete = (greetingID, callBack) => {
  * @param {*} greeting 
  * @param {*} callBack 
  */
-exports.updateGreeting = (greetingID, callBack) => {
-    greetingModel.updateGreeting(greetingID, (data, error) => {
+exports.updateGreeting = (greetingID, greeting, callBack) => {
+    greetingModel.updateGreeting(greetingID, greeting, (error, data) => {
         if (error)
             return callBack(new Error("Some error occurred while updating greeting"), null)
         else
-            return callBack(data, null)
+            return callBack(error, data)
     })
 }

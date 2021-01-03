@@ -2,14 +2,42 @@ const greetingModel = require('../models/greeting.model.js');
 const greetingService = require('../services/greeting.services')
 const Greeting = require('../models/greeting.model.js');
 
+
+/**
+ * @description Create and Save greeting
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.create = (req, res) => {
+    const greeting = new Greeting({
+        name: req.body.name || "Untitled greeting",
+        message: req.body.message
+    });
+    greetingService.createNewGreeting(greeting, (err, data) => {
+        if (err) {
+            res.send({
+                success: false,
+                status_code: 400,
+                message: `greeting can not be empty`
+            });
+        } else {
+            res.send({
+                success: true,
+                status_code: 200,
+                message: `greeting created successfully`,
+                data: (data)
+            });
+        }
+    })
+}
+
+
 /**
  * @description find greeting by its id
  * @param {*} req takes _id
  * @param {*} res sends responce from server
  */
 exports.findOne = (req, res) => {
-
-    //const greetingID = req.params._id;
     try {
         const greetingID = req.params.greetingId;
         greetingService.findGreeting(greetingID, greeting => {
@@ -33,7 +61,6 @@ exports.findOne = (req, res) => {
             success: false,
             status_code: 500,
             message: "greeting retrieving greeting with id " + req.params.greetingId
-
         })
     }
 }
@@ -80,35 +107,6 @@ exports.delete = (req, res) => {
 
 
 /**
- * @description Create and Save greeting
- * @param {*} req 
- * @param {*} res 
- */
-exports.create = (req, res) => {
-    const greeting = new Greeting({
-        name: req.body.name || "Untitled greeting",
-        message: req.body.message
-    });
-    greetingService.createNewGreeting(greeting, (err, data) => {
-        if (err) {
-            res.send({
-                success: false,
-                status_code: 400,
-                message: `greeting can not be empty`
-            });
-        } else {
-            res.send({
-                success: true,
-                status_code: 200,
-                message: `greeting created successfully`,
-                data: (data)
-            });
-        }
-    })
-}
-
-
-/**
  * @description find all greetings 
  * @param {*} request 
  * @param {*} response 
@@ -122,7 +120,6 @@ exports.findAll = (req, res) => {
                 message: `greeting found`,
                 data: (greetings)
             });
-
         });
 
     } catch (error) {
@@ -131,8 +128,6 @@ exports.findAll = (req, res) => {
             status_code: 500,
             message: `greeting not found`,
         });
-
-       
     }
 }
 
@@ -144,20 +139,20 @@ exports.findAll = (req, res) => {
  */
 exports.update = (req, res) => {
     try {
+        const greetingID = req.params.greetingId;
+        const greeting = new Greeting({
+            name: req.body.name || "Untitled greeting",
+            message: req.body.message,
+        });
         // Validate Request
-        if (!req.body.content) {
+        if (!req.body.message) {
             return res.send({
                 success: false,
                 status_code: 400,
                 message: "greeting content can not be empty"
             });
         }
-        const greetingID = req.params._id;
-        // const greeting = new greeting({
-        //     title: req.body.title || "Untitled greeting",
-        //     content: req.body.content
-        // });
-        greetingService.updategreeting(greetingID, { new: true },
+        greetingService.updateGreeting(greetingID, greeting, { new: true },
             greeting => {
                 if (!greeting) {
                     return res.send({
@@ -166,7 +161,12 @@ exports.update = (req, res) => {
                         message: "greeting not found with id " + req.params.greetingId
                     });
                 }
-                res.send(greeting);
+                return res.send({
+                    success: true,
+                    status_code: 200,
+                    message: "greeting updated successfully with id " + req.params.greetingId,
+                    data: (greeting)
+                });
             })
     } catch (err) {
         if (err.kind === 'ObjectId') {

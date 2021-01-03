@@ -55,7 +55,6 @@ exports.findGreeting = (greetingID, callBack) => {
     });
 }
 
-
 /**
  * @description delete searched greeting by its id
  * @param {*} greetingID takes from request
@@ -70,11 +69,12 @@ exports.delete = (greetingID, callBack) => {
 }
 
 /** */
-exports.updateGreeting = (greetingID, callBack) => {
-    Greeting.findByIdAndUpdate(greetingID, (error, data) => {
+exports.updateGreeting = (greetingID, greeting, callBack) => {
+    greeting.findByIdAndUpdate(greetingID, greeting, (error, data) => {
         if (error)
             return callBack(error, null);
-        return callBack(null, data);
+        else
+            return callBack(null, data);
     });
 }
 
