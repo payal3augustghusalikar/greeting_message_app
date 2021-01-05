@@ -1,79 +1,78 @@
 const greetingModel = require('../models/greeting.model')
 const mongoose = require('mongoose');
 
+class Services {
 
-/**
- * @description create new greeting 
- * @param {*} data 
- * @param {*} callback calls controller method
- */
-exports.createNewGreeting = (greeting, callback) => {
-    // const Usergreeting = new greeting({
-    //     UserTitle: req.body.title || "Untitled greeting",
-    //     UserContent: req.body.content
-    // });
+    /**
+     * @description create new greeting 
+     * @param {*} data 
+     * @param {*} callback calls controller method
+     */
+    createNewGreeting = (greetingInfo, callback) => {
+        greetingModel.createNew(greetingInfo, (error, data) => {
+            if (error)
+                return callback(error, null)
+            else
+                return callback(null, data);
+        })
+    }
 
-    greetingModel.create(greeting , (err, data) => {
-        if (err) {
-            callback(err, null)
-        } else {
-            return callback(null, data);
-        }
-    })
+    /**
+     * @description find all greetings
+     * @param {*} callBack calls controller method
+     */
+    findAll = (callBack) => {
+        greetingModel.findAllGreeting((data, error) => {
+            if (error)
+                return callBack(null, new Error("Some error occurred while retrieving greeting"))
+            else
+                return callBack(data, null)
+        })
+    }
+
+
+    /**
+     * @description find greeting by _id
+     * @param {*} greetingID 
+     * @param {*} callBack calls controller method
+     */
+    findGreeting = (greetingID, callBack) => {
+        greetingModel.findGreeting(greetingID, (data, error) => {
+            if (error)
+                return callBack(error, null);
+            else
+                return callBack(null, data);
+        });
+    }
+
+    /**
+     * @description delete greting by _id
+     * @param {*} greetingID 
+     * @param {*} callBack 
+     */
+    delete = (greetingID, callBack) => {
+        greetingModel.delete((greetingID), (data, error) => {
+            if (error)
+                return callBack(new Error("Some error occurred while deleting greeting"))
+            else
+                return callBack(null, data)
+        })
+    }
+
+    /**
+     * @param {*} greetingID 
+     * @param {*} greeting 
+     * @param {*} callBack 
+     */
+    updateGreeting = (greetingInfo, callBack) => {
+        greetingModel.updateGreeting(greetingInfo, (error, data) => {
+            if (error)
+                return callBack(new Error("Some error occurred while updating greeting"), null)
+            else
+                return callBack(error, data)
+        })
+    }
 }
+module.exports = new Services();
 
-/**
- * @description find all greetings
- * @param {*} callBack calls controller method
- */
-exports.findAll = (callBack) => {
-    greetingModel.findAll((data, error) => {
-        if (error)
-            return callBack(new Error("Some error occurred while retrieving greeting"), null)
-        else
-            return callBack(data)
-    })
-}
 
-/**
- * @description find greeting by _id
- * @param {*} greetingID 
- * @param {*} callBack calls controller method
- */
-exports.findGreeting = (gretingID, callBack) => {
-    greetingModel.findGreeting(gretingID, (data, error) => {
-        if (error)
-            return callBack(error, null);
-        else
-            return callBack(null, data);
-    });
-}
-
-/**
- * @description delete greting by _id
- * @param {*} greetingID 
- * @param {*} callBack 
- */
-exports.delete = (greetingID, callBack) => {
-    greetingModel.delete((greetingID), (data, error) => {
-        if (error)
-            return callBack(new Error("Some error occurred while deleting greeting"))
-        else
-            return callBack(null, data)
-    })
-}
-
-/**
- * 
- * @param {*} greetingID 
- * @param {*} greeting 
- * @param {*} callBack 
- */
-exports.updateGreeting = (greetingID, greeting, callBack) => {
-    greetingModel.updateGreeting(greetingID, greeting, (error, data) => {
-        if (error)
-            return callBack(new Error("Some error occurred while updating greeting"), null)
-        else
-            return callBack(error, data)
-    })
-}

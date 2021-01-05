@@ -1,9 +1,6 @@
-
 module.exports = (app) => {
     const greetings = require('../controllers/greeting.controllers.js');
-    const service = require('../services/greeting.services.js')
-
-
+ 
     // Create a new greeting
     app.post('/greetings', greetings.create);
 
@@ -19,4 +16,4 @@ module.exports = (app) => {
     // Delete a greeting with greetingId
     app.delete('/greetings/:greetingId', greetings.delete);
 }
- 
+

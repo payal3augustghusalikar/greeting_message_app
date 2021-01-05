@@ -3,8 +3,18 @@ const Services = require('../services/greeting.services')
 
 // document structure and required and optional in data
 const GreetingSchema = mongoose.Schema({
-    name: String,
-    message: String
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "message": {
+                "type": "string"
+            },
+        }
+    },
 }, {
     timestamps: true
 });
@@ -12,71 +22,78 @@ const GreetingSchema = mongoose.Schema({
 // creating a nw collection
 const Greeting = mongoose.model('Greeting', GreetingSchema)
 
-/**
- * @description create new greeting
- * @param {*} greeting
- * @param {*} callback calls service method
- */
-exports.create = (greeting, callback) => {
+class Model {
 
-    greeting.save({}, (err, data) => {
-        if (err) {
-            callback(err, null);
-        } else {
-            return callback(null, data)
-        }
-    })
+    /**
+     * @description create new greeting
+     * @param {*} greeting
+     * @param {*} callback calls service method
+     */
+    createNew = (greetingInfo, callback) => {
+
+        const greeting = new Greeting({
+            name: greetingInfo.name || "Untitled greeting",
+            message: greetingInfo.message
+        });
+        greeting.save({}, (error, data) => {
+            if (error)
+                return callback(error, null);
+            else
+                return callback(null, data)
+        })
+    }
+
+    /**
+     * @description find all greetings
+     * @param {*} callBack calls service method
+     */
+    findAllGreeting = (callBack) => {
+        Greeting.find((data, error) => {
+            if (error)
+                return callBack(null, error)
+            else
+                return callBack(data, null)
+        });
+    }
+
+    /**
+     * @description find searched greeting by its id
+     * @param {*} greetingID takes from request
+     * @param {*} callBack calls service method
+     */
+    findGreeting = (greetingID, callBack) => {
+        Greeting.findById(greetingID, (error, data) => {
+            if (error)
+                return callBack(error, null);
+            else
+                return callBack(null, data);
+        });
+    }
+
+    /**
+     * @description delete searched greeting by its id
+     * @param {*} greetingID takes from request
+     * @param {*} callBack calls service method
+     */
+    delete = (greetingID, callBack) => {
+        Greeting.findByIdAndRemove(greetingID, (error, data) => {
+            if (error)
+                return callBack(error, null);
+            else
+                return callBack(null, data);
+        });
+    }
+
+    /** */
+    updateGreeting = (greetingInfo, callBack) => {
+        greeting.findByIdAndUpdate(greetingInfo, (error, data) => {
+            if (error)
+                return callBack(error, null);
+            else
+                return callBack(null, data);
+        });
+    }
 }
-
-/**
- * @description find all greetings
- * @param {*} callBack calls service method
- */
-exports.findAll = (callBack) => {
-    Greeting.find((error, data) => {
-        if (error)
-            return callBack(error, data)
-        else
-            return callBack(data)
-    })
-}
-
-/**
- * @description find searched greeting by its id
- * @param {*} greetingID takes from request
- * @param {*} callBack calls service method
- */
-exports.findGreeting = (greetingID, callBack) => {
-    Greeting.findById(greetingID, (error, data) => {
-        if (error)
-            return callBack(error, null);
-        else
-            return callBack(null, data);
-    });
-}
-
-/**
- * @description delete searched greeting by its id
- * @param {*} greetingID takes from request
- * @param {*} callBack calls service method
- */
-exports.delete = (greetingID, callBack) => {
-    Greeting.findByIdAndRemove(greetingID, (error, data) => {
-        if (error)
-            return callBack(error, null);
-        return callBack(null, data);
-    });
-}
-
-/** */
-exports.updateGreeting = (greetingID, greeting, callBack) => {
-    greeting.findByIdAndUpdate(greetingID, greeting, (error, data) => {
-        if (error)
-            return callBack(error, null);
-        else
-            return callBack(null, data);
-    });
-}
-
-
+module.exports = new Model();
 module.exports = mongoose.model('Greeting', GreetingSchema);
+
