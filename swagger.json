@@ -27,10 +27,10 @@
         "/greetings": {
             "get": {
                 "tags": [
-                    "greeting"
+                    "Greetings"
                 ],
-                "summary": "reteive a  a greeting",
-                "description": "retrive a greeting",
+                "summary": "retrive all greetings",
+                "description": "retrive all greetings",
                 "responses": {
                     "200": {
                         "description": "Greeting found successfully"
@@ -48,7 +48,7 @@
             },
             "post": {
                 "tags": [
-                    "Greeting"
+                    "Greetings"
                 ],
                 "description": "create a new greeting",
                 "summary": "create a greeting",
