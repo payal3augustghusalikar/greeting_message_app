@@ -33,16 +33,16 @@
                 "description": "retrive all greetings",
                 "responses": {
                     "200": {
-                        "description": "Greeting found successfully"
+                        "description": "Greeting found successfully",
+                        "schema": {
+                            "$ref": "#/definitions/ greeting"
+                        }
                     },
                     "404": {
                         "description": "Greeting not found "
                     },
                     "500": {
                         "description": "could not find greeetings"
-                    },
-                    "schema": {
-                        "$ref": "#/definitions/ greeting"
                     }
                 }
             },
@@ -63,10 +63,7 @@
                         "name": " greeting ",
                         "in": "body",
                         "type": "string",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/greeting"
-                        }
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -75,9 +72,6 @@
                     },
                     "400": {
                         "description": "Greeting cannot be empty"
-                    },
-                    "schema": {
-                        "$ref": "#/definitions/greeting"
                     }
                 }
             }
@@ -104,10 +98,7 @@
                         "name": " greeting ",
                         "in": "path",
                         "type": "string",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/greeting"
-                        }
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -119,9 +110,6 @@
                     },
                     "500": {
                         "description": "could not find greeetings"
-                    },
-                    "schema": {
-                        "$ref": "#/definitions/greeting"
                     }
                 }
             },
@@ -142,9 +130,6 @@
                     },
                     "500": {
                         "description": "could not delete greeeting"
-                    },
-                    "schema": {
-                        "$ref": "#/definitions/greeting"
                     }
                 }
             },
@@ -155,10 +140,7 @@
                 "summary": "Get single greeting",
                 "responses": {
                     "200": {
-                        "description": "Greeting found successfully",
-                        "schema": {
-                            "$ref": "#/definitions/greeting"
-                        }
+                        "description": "Greeting found successfully"
                     }
                 }
             }

@@ -1,13 +1,12 @@
-
-const greetingService = require('../services/greeting.services')
+const greetingService = require('../services/greeting.svc')
 const logger = require('../../config/logger.js');
 const Joi = require('joi');
 
-const name = Joi.string().regex(/^[A-Z]+$/).uppercase();
+const namePattern = Joi.string().regex(/^[A-Za-z]+$/);
 
 const ControllerDataValidation = Joi.object().keys({
-    name: name.required(),
-    message: name.required(),
+    name: namePattern.required(),
+    message: namePattern.required(),
 })
 
 class Controller {

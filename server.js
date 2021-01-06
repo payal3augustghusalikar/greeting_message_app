@@ -30,7 +30,7 @@ const swaggerDocument = require('./swagger.json')
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Require Notes routes  
-require('./app/routes/greeting.routes.js')(app);
+require('./app/routes/greeting.rt.js')(app);
 
 const port = process.env.PORT || 2000;
 // listen for requests using callback

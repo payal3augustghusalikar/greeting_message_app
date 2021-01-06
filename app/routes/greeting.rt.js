@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    const greetings = require('../controllers/greeting.controllers.js');
+    const greetings = require('../controllers/greeting.ctr.js');
  
     // Create a new greeting
     app.post('/greetings', greetings.create);

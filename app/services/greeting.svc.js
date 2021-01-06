@@ -1,4 +1,4 @@
-const greetingModel = require('../models/greeting.model')
+const greetingModel = require('../models/greeting.mdl')
 const mongoose = require('mongoose');
 
 class Services {
@@ -9,7 +9,7 @@ class Services {
      * @param {*} callback calls controller method
      */
     createNewGreeting = (greetingInfo, callback) => {
-        greetingModel.createNew(greetingInfo, (error, data) => {
+        greetingModel.create(greetingInfo, (error, data) => {
             if (error)
                 return callback(error, null)
             else
@@ -69,7 +69,7 @@ class Services {
             if (error)
                 return callBack(new Error("Some error occurred while updating greeting"), null)
             else
-                return callBack(error, data)
+                return callBack(null, data)
         })
     }
 }

@@ -1,26 +1,41 @@
 const mongoose = require('mongoose');
-const Services = require('../services/greeting.services')
+const Services = require('../services/greeting.svc')
+let validator = require('validator')
 
 // document structure and required and optional in data
 const GreetingSchema = mongoose.Schema({
-    "type": "array",
-    "items": {
-        "type": "object",
-        "properties": {
-            "name": {
-                "type": "string"
-            },
-            "message": {
-                "type": "string"
-            },
-        }
-    },
+    // "type": "array",
+    // "definations": {
+    //     "greeting": {
+    //         // "type": "object",
+    //         "properties": {
+                "name": {
+                    "type": "string",
+                    required: true,
+                    unique: true,
+                    validate: (value) => {
+                        return validator.isName(value)
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    required: true,
+                    validate: (value) => {
+                        return validator.isMessage(value)
+                    }
+                },
+    //         }
+    //     }
+    // },
+    // name: String,
+    // message: String
 }, {
     timestamps: true
 });
 
 // creating a nw collection
 const Greeting = mongoose.model('Greeting', GreetingSchema)
+
 
 class Model {
 
@@ -35,6 +50,7 @@ class Model {
             name: greetingInfo.name || "Untitled greeting",
             message: greetingInfo.message
         });
+
         greeting.save({}, (error, data) => {
             if (error)
                 return callback(error, null);

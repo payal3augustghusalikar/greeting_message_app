@@ -3,7 +3,7 @@ require(`dotenv`).config();
 
 module.exports = () => {
     // Connecting to the database
-    mongoose.connect(dbConfig.url, {
+    mongoose.connect(process.env.MONGODB_URL, {
         useNewUrlParser: true
     }).then(() => {
         console.log("Successfully connected to the database");
