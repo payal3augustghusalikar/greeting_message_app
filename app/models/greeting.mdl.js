@@ -1,27 +1,20 @@
 const mongoose = require('mongoose');
 
 const GreetingSchema = mongoose.Schema({
-    "name": {
-        "type": "string",
-        required: true,
-        unique: true,
-        validate: (value) => {
-            return validator.isName(value)
-        }
-    },
-    "message": {
-        "type": "string",
-        required: true,
-        validate: (value) => {
-            return validator.isMessage(value)
-        }
-    },
+    name: String,
+    message: String
 }, {
     timestamps: true
 });
 const Greeting = mongoose.model('Greeting', GreetingSchema);
 
 class GreetingModel {
+
+    /**
+     * 
+     * @param {*} greetingInfo 
+     * @param {*} callBack 
+     */
     create = (greetingInfo, callBack) => {
         const greeting = new Greeting({
             name: greetingInfo.name,
@@ -36,7 +29,6 @@ class GreetingModel {
         });
     }
 
-
     findAll = (callBack) => {
         Greeting.find((error, data) => {
             if (error)
@@ -50,8 +42,8 @@ class GreetingModel {
         Greeting.findById(greetingID, (error, data) => {
             if (error)
                 return callBack(error, null);
-                else
-            return callBack(null, data);
+            else
+                return callBack(null, data);
         });
     }
 
@@ -62,8 +54,8 @@ class GreetingModel {
         }, { new: true }, (error, data) => {
             if (error)
                 return callBack(error, null);
-                else
-            return callBack(null, data);
+            else
+                return callBack(null, data);
         });
     }
 

@@ -7,6 +7,7 @@ const ControllerDataValidation = Joi.object({
     message: Joi.string().regex(/^[a-zA-Z ]+$/).min(3).required()
 })
 
+
 class GreetingController {
     /**
      * @description Create and save a new greeting
@@ -18,14 +19,12 @@ class GreetingController {
             message: req.body.message
         }
         const validation = ControllerDataValidation.validate(greetingInfo);
-
         if (validation.error) {
             return res.status(400).send({
                 success: false,
                 message: "please enter valid details"
             });
         }
-
         greetingService.create(greetingInfo, (error, data) => {
             if (error) {
                 logger.error("Some error occurred while creating greeting")
@@ -34,16 +33,14 @@ class GreetingController {
                     message: "Some error occurred while creating greeting"
                 });
             }
-
             logger.info("Greeting added successfully !")
-            res.send({
+            res.status(200).send({
                 success: true,
                 message: "Greeting added successfully !",
                 data: data
             });
         });
     }
-
 
     /**
      * @description Find all the greeting
@@ -136,7 +133,7 @@ class GreetingController {
                 greetingID: req.params.greetingId
             }
             greetingService.update(greetingInfo, (error, data) => {
-             if (error) {
+                if (error) {
                     logger.error("Error updating greeting with id : " + req.params.greetingId)
                     return res.send({
                         success: false,
@@ -216,7 +213,6 @@ class GreetingController {
             }
             logger.error("Could not delete greeting with id " + greetingID);
             return res.send({
-
                 success: false,
                 status_code: 500,
                 message: "Could not delete greeting with id " + greetingID

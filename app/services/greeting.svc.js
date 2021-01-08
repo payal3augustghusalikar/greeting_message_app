@@ -3,23 +3,24 @@ const Greeting = require('../models/greeting.mdl.js');
 class GreetingService {
     /**
      * @description Create and save greeting then send response to controller
-     * @method save is used to save the greeting
+     * @method create is used to save the greeting
      * @param callBack is the callBack for controller
      */
+
+
     create = (greetingInfo, callBack) => {
         // create a greeting
         Greeting.create(greetingInfo, (error, data) => {
             if (error)
                 return callBack(error, null);
-            else
-                return callBack(null, data);
+            return callBack(null, data);
         })
     }
 
 
     /**
      * @description Find all the greetings and return response to controller
-     * @method find is used to retrieve greetings
+     * @method findAll is used to retrieve greetings
      * @param callBack is the callBack for controller
      */
     findAll = (callBack) => {
@@ -33,7 +34,7 @@ class GreetingService {
 
     /**
      * @description Find greeting by id and return response to controller
-     * @method findById is used to retrieve greeting by ID
+     * @method findOne is used to retrieve greeting by ID
      * @param callBack is the callBack for controller
      */
     findOne = (greetingID, callBack) => {
@@ -47,7 +48,7 @@ class GreetingService {
 
     /**
      * @description Update greeting by id and return response to controller
-     * @method findByIdAndUpdate is used to update greeting by ID
+     * @method update is used to update greeting by ID
      * @param callBack is the callBack for controller
      */
     update = (greetingInfo, callBack) => {
@@ -62,7 +63,7 @@ class GreetingService {
 
     /**
      * @description Delete greeting by id and return response to controller
-     * @method findByIdAndRemove is used to remove greeting by ID
+     * @method deleteById is used to remove greeting by ID
      * @param callBack is the callBack for controller
      */
     delete = (greetingID, callBack) => {

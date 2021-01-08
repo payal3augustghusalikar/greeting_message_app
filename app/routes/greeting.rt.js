@@ -16,30 +16,3 @@ module.exports = (app) => {
     // Delete a greeting with greetingId
     app.delete('/greetings/:greetingId', greetings.delete);
 }
-
-// /**
-//      * @description Create new Greeting
-//      */
-//     app.post('/greetings', greetings.create);
-
-//     /**
-//      * @description Retrieve all  Greetings
-//      */
-//     app.get('/greetings', greetings.findAll);
-
-//     /**
-//      * @description Retrieve single greeting with greetingID
-//      */
-//     app.get('/greetings/:greetingID', greetings.findOne);
-
-//     /**
-//      * @description Update Greeting with greetingID
-//      */
-//     app.put('/greetings/:greetingID', greetings.update);
-
-//     /**
-//      * @description Delete Greeting with greetingID
-//      */
-//     app.delete('/greetings/:greetingID', greetings.delete);
-// }
-

@@ -93,7 +93,7 @@
                 "parameters": [
                     {
                         "name": " greeting ",
-                        "in": "path",
+                        "in": "body",
                         "type": "string",
                         "required": true
                     }
