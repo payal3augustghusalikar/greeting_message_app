@@ -34,7 +34,7 @@ var DEBUG_CONNECTION_ERROR = 'An error has occured while connecting to db server
 var blueBird = require('bluebird');
 var mongoose = require('mongoose');
 var debug = require('debug');
-const { options } = require('joi');
+//const { options } = require('joi');
 
 var d = debug('mongo-db-instance');
 

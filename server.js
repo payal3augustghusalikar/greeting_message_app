@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-require('./config/database.config.js')();
+require('./config/mongoDB.js')();
 
 // create express app
 const app = express();
@@ -33,7 +33,7 @@ const port = process.env.PORT || 2000;
 // listen for requests using callback
 app.listen(port, () => {
     logger.info(`Server is listening on port:  ${port}`);
-    
+
 });
 
 
