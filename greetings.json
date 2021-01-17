@@ -1,0 +1,20 @@
+{
+    "greetingss":
+ [
+        {
+            "greetingId": 1,
+            "name": "Acompany",
+            "message": "AHello"
+        },
+        {
+            "greetingId": 2,
+            "name": "Bcompany",
+            "message": "BHello"
+        },
+        {
+            "greetingId": 3,
+            "name": "Ccompany",
+            "message": "CHello"
+        }
+    ]
+}

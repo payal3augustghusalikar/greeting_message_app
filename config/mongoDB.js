@@ -81,6 +81,8 @@ mongoDBAdapter.connect()
     .catch(err =>
         console.log("Could not connect database", err));
 
+   
+
 module.exports = MongoDBAdapter;
 
 

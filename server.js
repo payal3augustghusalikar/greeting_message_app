@@ -36,5 +36,31 @@ app.listen(port, () => {
 
 });
 
+module.exports = app;
+
+// app.use(express.json)
+
+//     const greetings = [
+//          {
+//              "id": 1,
+//              "name": "Acompany",
+//              "greeting": "AHello"
+//          },
+//          {
+//              "id": 2,
+//              "name": "Bcompany",
+//              "greeting": "BHello"
+//          },
+//          {
+//              "id": 3,
+//              "name": "Ccompany",
+//              "greeting": "CHello"
+//          }
+//      ]
+ 
+// app.get("/greetings", (req, res) => {
+//     res.send(greetings);
+// });
+
 
 
