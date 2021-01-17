@@ -1,0 +1,19 @@
+{
+    "greetings": [
+        {
+            "id": 1,
+            "name": "Acompany",
+            "greeting": "AHello"
+        },
+        {
+            "id": 2,
+            "name": "Bcompany",
+            "greeting": "BHello"
+        },
+        {
+            "id": 3,
+            "name": "Ccompany",
+            "greeting": "CHello"
+        }
+    ]
+}
