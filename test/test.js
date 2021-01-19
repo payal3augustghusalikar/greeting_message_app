@@ -7,19 +7,8 @@ const should = chai.should;
 chai.use(chaiHttp);
 //assertion style
 chai.should();
-// const app = express();
-// app.use(express.json());
-//const greetings = require("../greetings.json");
-const API = "http://localhost:2000";
-//const greetings = require('../controllers/greeting.ctr.js');
-// chai.use(chaiHttp);
-// describe("Greetings API", () => {
 
-// beforeEach((done) => {
-//     greetings.remove({}, (err) => {
-//        done();
-//     });
-// });
+const greet = require("../Greetings.json");
 
 describe("Greetings API", () => {
   /**
@@ -33,13 +22,13 @@ describe("Greetings API", () => {
         .get("/greetings")
         // .send({})
         .end((err, res) => {
-          // console.log(res);
+          //console.log(res);
           // console.log("err",err);
           res.should.have.status(200);
           res.body.should.be.a("object");
           // should(res.body).be.a('object');
           // res.body.length.should.be.eq(3);
-          //console.log("Response Body:", res.body);
+          // console.log("Response Body:", res.body);
           // console.log (result);
           done();
         });
@@ -51,7 +40,6 @@ describe("Greetings API", () => {
         .get("/greeting")
         .end((err, res) => {
           res.should.have.status(404);
-          // console.log (result);
           done();
         });
     });
@@ -60,22 +48,35 @@ describe("Greetings API", () => {
   /**
    * Test th GET by id
    */
-  describe("GET /greetingss/:greetingId", () => {
+  describe("/GET /greetings/:greetingId", () => {
     it("should get greeting by id", (done) => {
-      const greetingID = 2;
+      // const greetingId = greet.greetings.greeting3.greetingId
+      const greetingId = 2;
+      console.log("id is ", greetingId);
+      // const greetingID = 2;
       chai
         .request(server)
-        .get("/greetingss/" + greetingID)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a("object");
-          res.body.should.have.property("greetingID");
-          res.body.should.have.property("name");
-          res.body.should.have.property("message");
+        .get("/greetings/" + greetingId)
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.body.should.be.a("object");
+          // response.body.should.have.property("greetingId");
+          // response.body.should.have.property("name");
+          // response.body.should.have.property("message");
           // res.body.should.have.property("greetingId").eq(2);
           done();
         });
     });
+
+    //   const greetingID = greet.greetings.greeting3.greetingId;
+    //   chai
+    //     .request(server)
+    //     .delete("/greetings/" + greetingID)
+    //     .end((err, response) => {
+    //       response.should.have.status(200);
+    //       done();
+    //     });
+    // });
 
     // it("Should get Particular greeting only", (done) => {
     //   chai
@@ -91,10 +92,10 @@ describe("Greetings API", () => {
     //     });
 
     it("should not get greeting by id", (done) => {
-      const greetingId = 144;
+      const greetingID = 144;
       chai
         .request(server)
-        .get("/greetings/" + greetingId)
+        .get("/Greetings/" + greetingID)
         .end((err, res) => {
           res.should.have.status(404);
           res.text.should.be.eq("task with provided id does not exist");
@@ -124,44 +125,78 @@ describe("Greetings API", () => {
   //     /// some other tests we will write here
   // })
 
-  describe("POST /greetings", function () {
-    it("Should add greeting in DB", (done) => {
-      const greeting = {
-        name: "payalll",
-        message: "Worlddd",
-      };
+  describe("/POST /greetings", function () {
+  it("Should add greeting in DB", (done) => {
+    //const greeting = greet.greeting4
+    const greeting = greet.greetings.greeting4
+    console.log(greeting)
+    chai
+      .request(server)
+      .post("/addgreetings/")
+     .send(greeting)
+      //.send(greeting)
+      .end((err, res) => {
+        res.should.have.status(201);
+        // console.log("Response Body:", res.body);
+        // res.should.have.status(200);
+        //res.body.should.be.a("Object");
+        should(res.body).be.a("object");
+        //  res.body.should.have.property("greetingId").eq(3);
+        res.body.should.have.property("name").eq("Ccompany");
+        res.body.should.have.property("greeting").eq("CHello");
 
-      chai
-        .request(server)
-        .post("/greetings")
-        // .send(greetings[greeting])
-        .send(greeting)
-        .end((err, res) => {
-          res.should.have.status(200);
-          // console.log("Response Body:", res.body);
-          // res.should.have.status(200);
-          //res.body.should.be.a("Object");
-          should(res.body).be.a("object");
-          // res.body.should.have.property("id").eq(4);
-          res.body.should.have.property("name").eq("payalll");
-          res.body.should.have.property("greeting").eq("Worlddd");
+        done();
+      });
+  });
 
-          done();
-        });
-    });
+   //describe("POST /greetings", () => {
+  //   it("It should POST a new task", (done) => {
+  //     const task = {
+  //       greetingId: 4,
+  //       name: "Taskkk ",
+  //       message: "taskkk",
+  //     };
+  //     chai
+  //       .request(server)
+  //       .post("/greetings")
+  //       .send(task)
+  //       .end((err, response) => {
+  //         response.should.have.status(201);
+  //         response.body.should.be.a("object");
+  //         //  response.body.should.have.property("id").eq(4);
+  //         response.body.should.have.property("name").eq("Taskkk");
+  //         response.body.should.have.property("message").eq("taskkk");
+  //         done();
+  //       });
+  //   });
+
+  //   it('It should POST new Greeting', (done)=>{
+  //     const greetingDetails = {
+  //         name: "Rajkumar",
+  //         message: "Hello"
+  //     };
+  //     chai.request(server)
+  //     .post('/addGreeting')
+  //     .send(greetingDetails)
+  //     .end((error,response)=>{ 
+  //         response.should.have.status(200);
+  //         response.body.should.be.a('Object');
+  //        done();
+  //     })
+  // })
+
 
     it("Should not add greeting without name property", (done) => {
-      const greeting = {
-        greeting: "hello",
-      }
+      const greeting = greet.greetings.greeting5;
+      console.log("not post", greeting);
       chai
         .request(server)
-        .post("/greetings")
+        .post("/greetings/")
         // .send(books[book])
         .send(greeting)
         .end((err, res) => {
           res.should.have.status(400);
-          // console.log("Response Body:", res.body);
+          console.log("Response Body:", res.body);
 
           res.text.should.be.eq("it is not accepting without name property");
           done();
@@ -169,9 +204,9 @@ describe("Greetings API", () => {
     });
   });
 
-  describe("PUT /greetings/:greetingId", function () {
-    it("Should put new greeting in DB", (done) => {
-      const greetingID = 1;
+  describe("/PUT /greetings/:greetingId", function () {
+    it("Should put existing greeting in DB", (done) => {
+      const greetingID = 2;
       const greeting = {
         name: "payalllchanged",
         message: "Worlddd",
@@ -185,11 +220,11 @@ describe("Greetings API", () => {
         .send(greeting)
         .end((err, res) => {
           res.should.have.status(200);
-          // console.log("Response Body:", res.body);
+          console.log("Response Body:", res.body);
           // res.should.have.status(200);
-          //res.body.should.be.a("Object");
-          should(res.body).be.a("object");
-          res.body.should.have.property(" greetingID").eq(1);
+          res.body.should.be.a("Object");
+          //should(res.body).be.a("object");
+          res.body.should.have.property(" greetingID").eq(2);
           res.body.should.have.property("name").eq("payalllchanged");
           res.body.should.have.property("greeting").eq("Worlddd");
 
@@ -222,17 +257,28 @@ describe("Greetings API", () => {
   /**
    * test delete
    */
-  describe("DELETE /greetings/:greetingId", function () {
-    it("Should delete existing greeting in DB", (done) => {
-      const greetingID = 1;
-      // for (book in books) {
+  describe("DELETE /greetings/greetingId", function () {
+    // it("Should delete existing greeting in DB", (done) => {
+    //   const greetingID = 1;
+    //   // for (book in books) {
+    //   chai
+    //     .request(server)
+    //     .delete("/greetings/" + greetingID)
+    //     // .send(greetings[greeting])
+    //     .send(greeting)
+    //     .end((err, res) => {
+    //       res.should.have.status(200);
+    //       done();
+    //     });
+    // });
+
+    it("It should DELETE an existing greeting", (done) => {
+      const greetingID = greet.greetings.greeting3.greetingId;
       chai
         .request(server)
         .delete("/greetings/" + greetingID)
-        // .send(greetings[greeting])
-        .send(greeting)
-        .end((err, res) => {
-          res.should.have.status(200);
+        .end((err, response) => {
+          response.should.have.status(200);
           done();
         });
     });
@@ -242,7 +288,7 @@ describe("Greetings API", () => {
       chai
         .request(server)
         .delete("/greetings/" + greetingID)
-        .send(greeting)
+        //.send(greeting)
         .end((err, res) => {
           res.should.have.status(400);
           res.text.should.be.eq("it cannot delete with wrong greeting id");
