@@ -1,0 +1,47 @@
+{ "greetings": {
+    "getGreetingById": {
+        "greetingId": 1,
+        "name": "Acompany",
+        "message": "AHello"
+    },
+    "greetingToUpdate": {
+        "greetingId": 2,
+        "name": "payalllchanged",
+        "message": "Worlddd"
+    },
+    "greetingToDelete": {
+        "greetingId": 3,
+        "name": "Ccompany",
+        "message": "CHello"
+    },
+    "greetingToPost": {  
+        "greetingId": 9,
+        "name": "Ccompany",
+        "message": "CHello"
+    },
+    "greeting5": {
+        "greetingId": 5,
+        "name": "Dcompany",
+        "message": "DHello"
+    },
+    "greeting7": {
+        "greetingId": 7,
+        "name": "Ecompany",
+        "message": "EHello"
+    },
+    "greetingWithoutName": {
+        "greetingId": 6,
+        "message": "DHello"
+    },
+   
+    "greetingWithImproperName": {
+        "greetingId": 7,
+        "name": "co",
+        "message": "EHello"
+    },
+    "greetingWithoutMessage": {
+        "greetingId": 8,
+        "message": "DHello"
+    }
+    }
+}
