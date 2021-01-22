@@ -2,10 +2,10 @@ const greetingService = require('../services/greeting.svc.js');
 const Joi = require('joi');
 const logger = require('../../logger/logger.js');
 
-const ControllerDataValidation = Joi.object({
-    name: Joi.string().regex(/^[a-zA-Z ]+$/).min(3).required(),
-    message: Joi.string().regex(/^[a-zA-Z ]+$/).min(3).required()
-})
+// const ControllerDataValidation = Joi.object({
+//     name: Joi.string().regex(/^[A-Za-z ]+$/).min(3).required(),
+//     message: Joi.string().regex(/^[A-za-z]+$/).min(3).required()
+// })
 
 
 class GreetingController {
@@ -15,16 +15,16 @@ class GreetingController {
      */
     create = (req, res) => {
         const greetingInfo = {
-            name: req.body.name,
-            message: req.body.message
-        }
-        const validation = ControllerDataValidation.validate(greetingInfo);
-        if (validation.error) {
-            return res.status(400).send({
-                success: false,
-                message: "please enter valid details"
-            });
-        }
+                name: req.body.name,
+                message: req.body.message
+            }
+            // const validation = ControllerDataValidation.validate(greetingInfo);
+            // if (validation.error) {
+            //     return res.status(400).send({
+            //         success: false,
+            //         message: "please enter valid details"
+            //     });
+            // }
         greetingService.create(greetingInfo, (error, data) => {
             if (error) {
                 logger.error("Some error occurred while creating greeting")
@@ -65,8 +65,7 @@ class GreetingController {
                     message: `greeting found`,
                     data: (data)
                 });
-            }
-            catch (error) {
+            } catch (error) {
                 logger.error("greeting not found");
                 res.send({
                     success: false,
@@ -108,8 +107,7 @@ class GreetingController {
                     data: (data)
                 })
             });
-        }
-        catch (error) {
+        } catch (error) {
             logger.error("could not found greeting with id" + req.params.greetingId);
             return res.send({
                 success: false,
@@ -157,8 +155,7 @@ class GreetingController {
                     data: data
                 });
             });
-        }
-        catch (error) {
+        } catch (error) {
             if (err.kind === 'ObjectId') {
                 logger.error("greeting not found with id " + req.params.greetingId)
                 return res.send({
@@ -178,10 +175,10 @@ class GreetingController {
 
 
     /**
-    * @description Update greeting with id
-    * @method delete is service class method
-    * @param response is used to send the response 
-    */
+     * @description Update greeting with id
+     * @method delete is service class method
+     * @param response is used to send the response 
+     */
     delete(req, res) {
         try {
             const greetingID = req.params.greetingId;
@@ -201,8 +198,7 @@ class GreetingController {
                     message: "greeting deleted successfully!"
                 })
             })
-        }
-        catch (error) {
+        } catch (error) {
             if (error.kind === 'ObjectId' || error.name === 'NotFound') {
                 logger.error("could not found greeting with id" + greetingID);
                 return res.send({

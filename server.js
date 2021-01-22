@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 require('./config/mongoDB.js')();
-
+const cors = require('cors');
 // create express app
 const app = express();
+app.use(cors());
 
 // parse requests of content-type - application/x-www-form-urlencoded - extended is a key
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -33,11 +34,8 @@ const port = process.env.PORT || 2000;
 // listen for requests using callback
 app.listen(port, () => {
     logger.info(`Server is listening on port:  ${port}`);
-
+    console.log(`server is listening on port : ${port}`)
 });
-
-
-
 
 
 module.exports = app;
