@@ -8,12 +8,10 @@
         "host": "localhost:2000",
         "basePath": "/"
     },
-    "tags": [
-        {
-            "name": "Greetings",
-            "description": "Everything about Greeting CRUD API"
-        }
-    ],
+    "tags": [{
+        "name": "Greetings",
+        "description": "Everything about Greeting CRUD API"
+    }],
     "schemes": [
         "http"
     ],
@@ -55,14 +53,12 @@
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [
-                    {
-                        "name": " greeting ",
-                        "in": "body",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
+                "parameters": [{
+                    "name": " greeting ",
+                    "in": "body",
+                    "type": "string",
+                    "required": true
+                }],
                 "responses": {
                     "200": {
                         "description": "Greeting created successfully"
@@ -74,15 +70,13 @@
             }
         },
         "/greetings/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "find greeting by ID",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "find greeting by ID",
+                "type": "string"
+            }],
             "put": {
                 "tags": [
                     "Greetings"
@@ -90,14 +84,12 @@
                 "summary": "Update an existing greeting",
                 "description": "find by ID and update",
                 "operationId": "updateGreeting",
-                "parameters": [
-                    {
-                        "name": " greeting ",
-                        "in": "body",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
+                "parameters": [{
+                    "name": " greeting ",
+                    "in": "body",
+                    "type": "string",
+                    "required": true
+                }],
                 "responses": {
                     "200": {
                         "description": "Greeting updated successfully"

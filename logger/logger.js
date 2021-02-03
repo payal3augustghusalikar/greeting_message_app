@@ -1,3 +1,12 @@
+/**
+ * @module       logger
+ * @file         logger.js
+ * @description  log the data using winstons logger
+ * @author       Payal Ghusalikar <payal.ghusalikar9@gmail.com>
+ * @since        2/01/2021  
+-----------------------------------------------------------------------------------------------*/
+
+
 const winston = require(`winston`);
 const {
     createLogger,
@@ -6,21 +15,21 @@ const {
 } = require(`winston`);
 
 
-const levels = { 
+const levels = {
     error: 0,
     warn: 1,
     info: 2,
     http: 3,
-  };
+};
 
-  winston.format.combine(
+winston.format.combine(
     winston.format.colorize(),
     winston.format.json()
-  );
+);
 
 const logger = createLogger({
-    transports: [     
-      new transports.File({
+    transports: [
+        new transports.File({
             filename: (`./log/error.log`),
             level: `error`,
             format: winston.format.combine(format.timestamp(), format.json())
@@ -33,9 +42,9 @@ const logger = createLogger({
         new transports.File({
             filename: (`./log/info.log`),
             level: `info`,
-            format: winston.format.combine(format.timestamp(), format.json())  
+            format: winston.format.combine(format.timestamp(), format.json())
         }),
     ]
 })
 
- module.exports = logger;
+module.exports = logger;

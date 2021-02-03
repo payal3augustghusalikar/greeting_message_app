@@ -1,3 +1,11 @@
+/**
+ * @module       app
+ * @file         server.js
+ * @description  connecting to server and rendering all routes
+ * @author       Payal Ghusalikar <payal.ghusalikar9@gmail.com>
+*  @since        2/01/2021  
+-----------------------------------------------------------------------------------------------*/
+
 const express = require('express');
 const bodyParser = require('body-parser');
 require('./config/mongoDB.js')();
@@ -6,16 +14,6 @@ const cors = require('cors');
 // create express app
 const app = express();
 app.use(cors())
-
-
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*')
-//     res.header('Access-Control-Allow-Origin', "Origin, X-requested-Width, Content-type, Accept, Authorization")
-//     if (req.method === 'OPTIONS') {
-//         res.header('Access-Control-Allow-Origin', 'PUT', 'POST', 'DELETE', 'GET');
-//         return res.status(200).json({});
-//     }
-// })
 
 // parse requests of content-type - application/x-www-form-urlencoded - extended is a key
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -39,7 +37,7 @@ const swaggerDocument = require('./lib/swagger.json')
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Require Notes routes  
-require('./app/routes/greeting.js')(app);
+require('./app/routes/routes.js')(app);
 
 const port = process.env.PORT || 2000;
 // listen for requests using callback

@@ -1,3 +1,12 @@
+/**
+ * @module       controllers
+ * @file         greeting.js
+ * @description  GreetingController class takes the request and sends responce
+ * @description  ControllerDataValidation vallidates the user request
+ * @author       Payal Ghusalikar <payal.ghusalikar9@gmail.com>
+*  @since        2/01/2021  
+-----------------------------------------------------------------------------------------------*/
+
 const greetingService = require('../services/greeting.js');
 const Joi = require('joi');
 const logger = require('../../logger/logger.js');
@@ -6,7 +15,6 @@ const ControllerDataValidation = Joi.object({
     name: Joi.string().regex(/^[a-zA-Z ]+$/).min(3).required(),
     message: Joi.string().regex(/^[a-zA-Z ]+$/).min(3).required()
 })
-
 
 class GreetingController {
     /**
@@ -117,7 +125,6 @@ class GreetingController {
         }
     }
 
-
     /**
      * @description Update greeting by id
      * @method update is service class method
@@ -172,7 +179,6 @@ class GreetingController {
             });
         };
     }
-
 
     /**
      * @description Update greeting with id

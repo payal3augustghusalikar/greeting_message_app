@@ -1,3 +1,12 @@
+/**
+ * @module       routes
+ * @file         routes.js
+ * @description  providing routes for crud operation
+ * @author       Payal Ghusalikar <payal.ghusalikar9@gmail.com>
+*  @since        2/01/2021  
+-----------------------------------------------------------------------------------------------*/
+
+
 module.exports = (app) => {
 
     const greetings = require('../controllers/greeting.js');

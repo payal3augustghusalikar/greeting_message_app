@@ -1,12 +1,10 @@
 /**
- * @module        models
- * @file          greeting.js
- * @description  controllers takes request and send the response  
+ * @module       models
+ * @file         greeting.js
+ * @description  greetingModel class holds the databse related methods 
  * @author       Payal Ghusalikar <payal.ghusalikar9@gmail.com>
-*  @since         26/01/2021  
+ * @since        2/01/2021  
 -----------------------------------------------------------------------------------------------*/
-
-
 
 const mongoose = require('mongoose');
 
@@ -21,7 +19,7 @@ const Greeting = mongoose.model('Greeting', GreetingSchema);
 class GreetingModel {
 
     /**
-     * 
+     * @description save the greeting in database
      * @param {*} greetingInfo 
      * @param {*} callBack 
      */
@@ -30,8 +28,7 @@ class GreetingModel {
             name: greetingInfo.name,
             message: greetingInfo.message || "Empty Message"
         });
-
-        greeting.save({}, (error, data) => {
+        greeting.save((error, data) => {
             if (error)
                 return callBack(error, null);
             else
@@ -39,6 +36,11 @@ class GreetingModel {
         });
     }
 
+
+    /**
+     * @description retrive all the greetings from database
+     * @param {*} callBack 
+     */
     findAll = (callBack) => {
         Greeting.find((error, data) => {
             if (error)
@@ -48,6 +50,10 @@ class GreetingModel {
         });
     }
 
+    /**
+     * @description retrive one greeting from database
+     * @param {*} callBack 
+     */
     findOne = (greetingID, callBack) => {
         Greeting.findById(greetingID, (error, data) => {
             if (error)
@@ -57,6 +63,11 @@ class GreetingModel {
         });
     }
 
+    /**
+     * @description find  greeting by id from database and update
+     * @param {*} greetingInfo 
+     * @param {*} callBack 
+     */
     update = (greetingInfo, callBack) => {
         Greeting.findByIdAndUpdate(greetingInfo.greetingID, {
             name: greetingInfo.name,
@@ -69,6 +80,11 @@ class GreetingModel {
         });
     }
 
+    /**
+     * @description find  greeting by id from database and delete
+     * @param {*} greetingInfo 
+     * @param {*} callBack 
+     */
     deleteById = (greetingID, callBack) => {
         Greeting.findByIdAndRemove(greetingID, (error, data) => {
             if (error)
