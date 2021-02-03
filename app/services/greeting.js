@@ -1,4 +1,4 @@
-const Greeting = require('../models/greeting.mdl.js');
+const Greeting = require('../models/greeting.js');
 
 class GreetingService {
     /**

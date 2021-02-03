@@ -1,3 +1,13 @@
+/**
+ * @module        models
+ * @file          greeting.js
+ * @description  controllers takes request and send the response  
+ * @author       Payal Ghusalikar <payal.ghusalikar9@gmail.com>
+*  @since         26/01/2021  
+-----------------------------------------------------------------------------------------------*/
+
+
+
 const mongoose = require('mongoose');
 
 const GreetingSchema = mongoose.Schema({

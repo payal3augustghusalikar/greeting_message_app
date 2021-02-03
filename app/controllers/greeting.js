@@ -1,11 +1,11 @@
-const greetingService = require('../services/greeting.svc.js');
+const greetingService = require('../services/greeting.js');
 const Joi = require('joi');
 const logger = require('../../logger/logger.js');
 
-// const ControllerDataValidation = Joi.object({
-//     name: Joi.string().regex(/^[A-Za-z ]+$/).min(3).required(),
-//     message: Joi.string().regex(/^[A-za-z]+$/).min(3).required()
-// })
+const ControllerDataValidation = Joi.object({
+    name: Joi.string().regex(/^[a-zA-Z ]+$/).min(3).required(),
+    message: Joi.string().regex(/^[a-zA-Z ]+$/).min(3).required()
+})
 
 
 class GreetingController {
@@ -15,16 +15,16 @@ class GreetingController {
      */
     create = (req, res) => {
         const greetingInfo = {
-                name: req.body.name,
-                message: req.body.message
-            }
-            // const validation = ControllerDataValidation.validate(greetingInfo);
-            // if (validation.error) {
-            //     return res.status(400).send({
-            //         success: false,
-            //         message: "please enter valid details"
-            //     });
-            // }
+            name: req.body.name,
+            message: req.body.message
+        }
+        const validation = ControllerDataValidation.validate(greetingInfo);
+        if (validation.error) {
+            return res.status(400).send({
+                success: false,
+                message: "please enter valid details"
+            });
+        }
         greetingService.create(greetingInfo, (error, data) => {
             if (error) {
                 logger.error("Some error occurred while creating greeting")
