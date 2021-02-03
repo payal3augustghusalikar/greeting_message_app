@@ -6,7 +6,6 @@
 *  @since        2/01/2021  
 -----------------------------------------------------------------------------------------------*/
 
-
 module.exports = (app) => {
 
     const greetings = require('../controllers/greeting.js');
