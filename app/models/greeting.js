@@ -21,76 +21,70 @@ class GreetingModel {
     /**
      * @description save the greeting in database
      * @param {*} greetingInfo 
-     * @param {*} callBack 
+     * @param {*}callback 
      */
-    create = (greetingInfo, callBack) => {
+    create = (greetingInfo, callback) => {
         const greeting = new Greeting({
             name: greetingInfo.name,
             message: greetingInfo.message || "Empty Message"
         });
         greeting.save((error, data) => {
-            if (error)
-                return callBack(error, null);
-            else
-                return callBack(null, data);
+            return (error) ?
+                callback(error, null) :
+                callback(null, data);
         });
     }
 
-
     /**
      * @description retrive all the greetings from database
-     * @param {*} callBack 
+     * @param {*}callback 
      */
-    findAll = (callBack) => {
+    findAll = (callback) => {
         Greeting.find((error, data) => {
-            if (error)
-                return callBack(error, null);
-            else
-                return callBack(null, data);
+            return (error) ?
+                callback(error, null) :
+                callback(null, data);
         });
     }
 
     /**
      * @description retrive one greeting from database
-     * @param {*} callBack 
+     * @param {*}callback 
      */
-    findOne = (greetingID, callBack) => {
+    findOne = (greetingID, callback) => {
         Greeting.findById(greetingID, (error, data) => {
-            if (error)
-                return callBack(error, null);
-            else
-                return callBack(null, data);
+            return (error) ?
+                callback(error, null) :
+                callback(null, data);
         });
     }
 
     /**
      * @description find  greeting by id from database and update
      * @param {*} greetingInfo 
-     * @param {*} callBack 
+     * @param {*}callback 
      */
-    update = (greetingInfo, callBack) => {
+    update = (greetingInfo, callback) => {
         Greeting.findByIdAndUpdate(greetingInfo.greetingID, {
             name: greetingInfo.name,
             message: greetingInfo.message || "Empty Message"
         }, { new: true }, (error, data) => {
-            if (error)
-                return callBack(error, null);
-            else
-                return callBack(null, data);
+            return (error) ?
+                callback(error, null) :
+                callback(null, data);
         });
     }
 
     /**
      * @description find  greeting by id from database and delete
      * @param {*} greetingInfo 
-     * @param {*} callBack 
+     * @param {*}callback 
      */
-    deleteById = (greetingID, callBack) => {
+    deleteById = (greetingID, callback) => {
         Greeting.findByIdAndRemove(greetingID, (error, data) => {
-            if (error)
-                return callBack(error, null);
-            else
-                return callBack(null, data);
+            return (error) ?
+                callback(error, null) :
+                callback(null, data);
         });
     }
 }

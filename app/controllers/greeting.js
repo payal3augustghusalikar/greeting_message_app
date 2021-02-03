@@ -27,27 +27,26 @@ class GreetingController {
             message: req.body.message
         }
         const validation = ControllerDataValidation.validate(greetingInfo);
-        if (validation.error) {
-            return res.status(400).send({
+        return (validation.error) ?
+            res.status(400).send({
                 success: false,
                 message: "please enter valid details"
+            }) :
+            greetingService.create(greetingInfo, (error, data) => {
+                return (error) ?
+                    (logger.error("Some error occurred while creating greeting"),
+                        res.status(500).send({
+                            success: false,
+                            message: "Some error occurred while creating greeting"
+                        })
+                    ) :
+                    logger.info("Greeting added successfully !"),
+                    res.status(200).send({
+                        success: true,
+                        message: "Greeting added successfully !",
+                        data: data
+                    });
             });
-        }
-        greetingService.create(greetingInfo, (error, data) => {
-            if (error) {
-                logger.error("Some error occurred while creating greeting")
-                return res.status(500).send({
-                    success: false,
-                    message: "Some error occurred while creating greeting"
-                });
-            }
-            logger.info("Greeting added successfully !")
-            res.status(200).send({
-                success: true,
-                message: "Greeting added successfully !",
-                data: data
-            });
-        });
     }
 
     /**
@@ -55,24 +54,23 @@ class GreetingController {
      * @method findAll is service class method
      */
     findAll = (req, res) => {
-
         greetingService.findAll((error, data) => {
             try {
-                if (error) {
-                    logger.error("Some error occurred while retrieving greetings");
+                return (error) ?
+                    (logger.error("Some error occurred while retrieving greetings"),
+                        res.send({
+                            success: false,
+                            status_code: 404,
+                            message: `greeting not found`
+                        })
+                    ) :
+                    logger.info("Successfully retrieved greetings !"),
                     res.send({
-                        success: false,
-                        status_code: 404,
-                        message: `greeting not found`,
+                        success: true,
+                        status_code: 200,
+                        message: `greeting found`,
+                        data: (data)
                     });
-                }
-                logger.info("Successfully retrieved greetings !");
-                res.send({
-                    success: true,
-                    status_code: 200,
-                    message: `greeting found`,
-                    data: (data)
-                });
             } catch (error) {
                 logger.error("greeting not found");
                 res.send({
@@ -93,27 +91,28 @@ class GreetingController {
         try {
             const greetingID = req.params.greetingId;
             greetingService.findOne(greetingID, (error, data) => {
-                if (error) {
-                    logger.error("Error retrieving note with id " + greetingID)
-                    return res.status(500).send({
-                        success: false,
-                        message: "Error retrieving note with id " + greetingID
-                    });
-                }
-                if (!data) {
-                    logger.warn("Greeing not found with id : " + greetingID)
-                    return res.status(404).send({
-                        success: false,
-                        message: "Greeing not found with id : " + greetingID
-                    });
-                }
-                logger.info("greeting found with id " + req.params.greetingId);
-                return res.send({
-                    success: true,
-                    status_code: 200,
-                    message: "greting found with id " + req.params.greetingId,
-                    data: (data)
-                })
+                return (error) ?
+                    (logger.error("Error retrieving note with id " + greetingID),
+                        res.status(500).send({
+                            success: false,
+                            message: "Error retrieving note with id " + greetingID
+                        })
+                    ) :
+                    ((!data) ?
+                        (logger.warn("Greeing not found with id : " + greetingID),
+                            res.status(404).send({
+                                success: false,
+                                message: "Greeing not found with id : " + greetingID
+                            })
+                        ) :
+                        logger.info("greeting found with id " + req.params.greetingId),
+                        res.send({
+                            success: true,
+                            status_code: 200,
+                            message: "greting found with id " + req.params.greetingId,
+                            data: (data)
+                        })
+                    )
             });
         } catch (error) {
             logger.error("could not found greeting with id" + req.params.greetingId);
@@ -138,45 +137,47 @@ class GreetingController {
                 greetingID: req.params.greetingId
             }
             greetingService.update(greetingInfo, (error, data) => {
-                if (error) {
-                    logger.error("Error updating greeting with id : " + req.params.greetingId)
-                    return res.send({
-                        success: false,
-                        status_code: 500,
-                        message: "Error updating greeting with id : " + req.params.greetingId
-                    });
-                }
-                if (!data) {
-                    logger.warn("Greeting not found with id : " + req.params.greetingId)
-                    return res.send({
-
-                        success: false,
-                        status_code: 404,
-                        message: "Greeting not found with id : " + req.params.greetingId
-                    });
-                }
-                logger.info("Greeting updated successfully !")
-                res.send({
-                    success: true,
-                    message: "Greeting updated successfully !",
-                    data: data
-                });
+                return (error) ?
+                    (
+                        logger.error("Error updating greeting with id : " + req.params.greetingId),
+                        res.send({
+                            success: false,
+                            status_code: 500,
+                            message: "Error updating greeting with id : " + req.params.greetingId
+                        })
+                    ) :
+                    (
+                        (!data) ?
+                        (logger.warn("Greeting not found with id : " + req.params.greetingId),
+                            res.send({
+                                success: false,
+                                status_code: 404,
+                                message: "Greeting not found with id : " + req.params.greetingId
+                            })
+                        ) :
+                        logger.info("Greeting updated successfully !"),
+                        res.send({
+                            success: true,
+                            message: "Greeting updated successfully !",
+                            data: data
+                        })
+                    )
             });
         } catch (error) {
-            if (err.kind === 'ObjectId') {
-                logger.error("greeting not found with id " + req.params.greetingId)
-                return res.send({
+            return (err.kind === 'ObjectId') ?
+                (logger.error("greeting not found with id " + req.params.greetingId),
+                    res.send({
+                        success: false,
+                        status_code: 404,
+                        message: "greeting not found with id " + req.params.greetingId
+                    })
+                ) :
+                logger.error("Error updating greeting with id " + req.params.greetingId),
+                res.send({
                     success: false,
-                    status_code: 404,
-                    message: "greeting not found with id " + req.params.greetingId
+                    status_code: 500,
+                    message: "Error updating greeting with id " + req.params.greetingId
                 });
-            }
-            logger.error("Error updating greeting with id " + req.params.greetingId)
-            return res.send({
-                success: false,
-                status_code: 500,
-                message: "Error updating greeting with id " + req.params.greetingId
-            });
         };
     }
 
@@ -189,36 +190,38 @@ class GreetingController {
         try {
             const greetingID = req.params.greetingId;
             greetingService.delete(greetingID, (error, data) => {
-                if (error) {
-                    logger.warn("greeting not found with id " + greetingID);
-                    return res.send({
+                return (error) ?
+                    (logger.warn("greeting not found with id " + greetingID),
+                        res.send({
+                            success: false,
+                            status_code: 404,
+                            message: "greeting not found with id " + greetingID
+                        })
+                    ) :
+
+                    logger.info("greeting deleted successfully!"),
+                    res.send({
+                        success: true,
+                        status_code: 200,
+                        message: "greeting deleted successfully!"
+                    })
+            })
+        } catch (error) {
+            return (error.kind === 'ObjectId' || error.name === 'NotFound') ?
+                (logger.error("could not found greeting with id" + greetingID),
+                    res.send({
                         success: false,
                         status_code: 404,
                         message: "greeting not found with id " + greetingID
-                    });
-                }
-                logger.info("greeting deleted successfully!");
+                    })
+                ) :
+
+                logger.error("Could not delete greeting with id " + greetingID),
                 res.send({
-                    success: true,
-                    status_code: 200,
-                    message: "greeting deleted successfully!"
-                })
-            })
-        } catch (error) {
-            if (error.kind === 'ObjectId' || error.name === 'NotFound') {
-                logger.error("could not found greeting with id" + greetingID);
-                return res.send({
                     success: false,
-                    status_code: 404,
-                    message: "greeting not found with id " + greetingID
+                    status_code: 500,
+                    message: "Could not delete greeting with id " + greetingID
                 });
-            }
-            logger.error("Could not delete greeting with id " + greetingID);
-            return res.send({
-                success: false,
-                status_code: 500,
-                message: "Could not delete greeting with id " + greetingID
-            });
         }
     }
 }
