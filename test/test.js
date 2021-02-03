@@ -14,7 +14,6 @@ chai.use(chaiHttp);
 chai.should();
 const greet = require("./greetings.json");
 
-
 describe("Greetings API", () => {
 
     /**
@@ -144,6 +143,7 @@ describe("Greetings API", () => {
                     done();
                 });
         });
+
         // test the PUT API when provided improper Id
         it("givenGreetings_WhenNotGivenProperName_ShouldNotUpdate_Greeting", (done) => {
             const greetingID = greet.greetings.greetingWithoutName.greetingId;

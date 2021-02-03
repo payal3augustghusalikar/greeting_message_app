@@ -198,7 +198,6 @@ class GreetingController {
                             message: "greeting not found with id " + greetingID
                         })
                     ) :
-
                     logger.info("greeting deleted successfully!"),
                     res.send({
                         success: true,
@@ -215,7 +214,6 @@ class GreetingController {
                         message: "greeting not found with id " + greetingID
                     })
                 ) :
-
                 logger.error("Could not delete greeting with id " + greetingID),
                 res.send({
                     success: false,
